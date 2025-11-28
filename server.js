@@ -1,6 +1,6 @@
 // server.js
 // Entry point del servicio PREDICT
-
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const predictRoutes = require("./routes/predictRoutes");
