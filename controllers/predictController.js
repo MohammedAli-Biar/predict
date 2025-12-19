@@ -64,15 +64,13 @@ async function doPredict(req, res) {
     const latencyMs = Date.now() - start;
     const timestamp = new Date().toISOString();
 
-    const predicc = new Prediccion({
+    const predicc = await Prediccion.create({
       resultado: Math.abs(prediction),
       timestamp
     });
 
-    const saved = await predicc.save();
-
     res.status(201).json({
-      predictionId: saved._id,
+      predictionId: predicc._id,
       prediction: Math.abs(prediction),
       timestamp,
       latencyMs

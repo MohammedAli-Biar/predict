@@ -1,7 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 
-const MONGOPATH = process.env.MONGO_URI || 'mongodb://localhost:27017/predict';
+const MONGOPATH = process.env.MONGO_URI;
 
 mongoose.connect(MONGOPATH)
   .then(() => console.log('Conectado a la base de datos.'))
