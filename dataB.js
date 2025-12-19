@@ -16,4 +16,4 @@ const PredictEsquema = new esquema({
     resultado: { type : Number, required : true},
     marcaT: String,
 });
-module.exports = mongoose.model('Predict', PredictEsquema)
+module.exports = mongoose.model('Predict', PredictEsquema)  
