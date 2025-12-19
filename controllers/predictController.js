@@ -1,9 +1,8 @@
-// controllers/predictController.js
 const { getModelInfo, predict } = require("../services/tfModelService");
 const Prediccion = require('../dataB');
 
 function health(req, res) {
-  res.json({
+  res.status(200).json({
     status: "ok",
     service: "predict"
   });
@@ -20,7 +19,7 @@ function ready(req, res) {
     });
   }
 
-  res.json({
+  res.status(200).json({
     ready: true,
     modelVersion: info.modelVersion
   });
@@ -65,29 +64,19 @@ async function doPredict(req, res) {
     const latencyMs = Date.now() - start;
     const timestamp = new Date().toISOString();
 
-    let predicc = new Prediccion({
-      resultado:prediction,
+    const predicc = new Prediccion({
+      resultado: prediction,
       timestamp
     });
 
-    predicc.save()
-      .then(id =>{
-        console.log('Se guardo sin problemas.');
-        res.status(201).json({
-          predictionId: id._id,
-          prediction,
-          timestamp,
-          latencyMs
-    });
-  }).catch (err=> {
-    console.error('ERROR al guardar en base de datos:',err);
-    es.status(201).json({
-      predictionId: null,
+    const saved = await predicc.save();
+
+    res.status(201).json({
+      predictionId: saved._id,
       prediction,
       timestamp,
       latencyMs
-  });
-});
+    });
 
   } catch (err) {
     console.error("Error en /predict:", err);
