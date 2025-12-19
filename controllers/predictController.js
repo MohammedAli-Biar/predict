@@ -65,7 +65,7 @@ async function doPredict(req, res) {
     const timestamp = new Date().toISOString();
 
     const predicc = new Prediccion({
-      resultado: prediction,
+      resultado: Math.abs(prediction),
       timestamp
     });
 
@@ -73,7 +73,7 @@ async function doPredict(req, res) {
 
     res.status(201).json({
       predictionId: saved._id,
-      prediction,
+      prediction: Math.abs(prediction),
       timestamp,
       latencyMs
     });
